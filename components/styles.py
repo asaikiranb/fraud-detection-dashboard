@@ -58,11 +58,11 @@ def inject_css():
 
         /* ─── Main Container ─── */
         .block-container {{
-            padding-top: 1.5rem;
-            padding-bottom: 2rem;
-            padding-left: 2rem;
-            padding-right: 2rem;
-            max-width: 1400px;
+            padding-top: 2rem;
+            padding-bottom: 3rem;
+            padding-left: 3rem;
+            padding-right: 3rem;
+            max-width: 1600px;
         }}
 
         /* ─── Sidebar ─── */
@@ -84,16 +84,16 @@ def inject_css():
         }}
 
         .stTabs [data-baseweb="tab"] {{
-            height: 44px;
+            height: 48px;
             background-color: transparent;
             border-radius: 0;
             border: none;
             border-bottom: 2px solid transparent;
             margin-bottom: -2px;
-            padding: 0 20px;
+            padding: 0 24px;
             color: {COLORS['text_secondary']};
             font-weight: 500;
-            font-size: 0.875rem;
+            font-size: 0.925rem;
             letter-spacing: 0.01em;
             transition: all 0.15s ease;
         }}
@@ -111,7 +111,7 @@ def inject_css():
         }}
 
         .stTabs [data-baseweb="tab-panel"] {{
-            padding-top: 1.5rem;
+            padding-top: 2rem;
         }}
 
         /* ─── Metrics ─── */

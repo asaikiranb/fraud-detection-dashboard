@@ -52,16 +52,16 @@ def fraud_donut(df: pd.DataFrame) -> go.Figure:
         yanchor="middle",
     )
 
-    fig = _apply_layout(fig, height=280)
+    fig = _apply_layout(fig, height=340)
     fig.update_layout(
         showlegend=True,
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=-0.15,
+            y=-0.12,
             xanchor="center",
             x=0.5,
-            font=dict(size=12),
+            font=dict(size=13),
         ),
         margin=dict(l=0, r=0, t=10, b=30),
     )
@@ -97,7 +97,7 @@ def fraud_by_category_bar(df: pd.DataFrame) -> go.Figure:
         customdata=cat_data["rate"],
     ))
 
-    fig = _apply_layout(fig, height=280)
+    fig = _apply_layout(fig, height=340)
     fig.update_layout(
         showlegend=False,
         margin=dict(l=0, r=0, t=10, b=0),
@@ -148,7 +148,7 @@ def monthly_fraud_trend(df: pd.DataFrame) -> go.Figure:
     defaults = plotly_layout_defaults()
     fig.update_layout(**defaults)
     fig.update_layout(
-        height=260,
+        height=320,
         margin=dict(l=0, r=0, t=10, b=0),
         legend=dict(
             orientation="h",
@@ -203,7 +203,7 @@ def hourly_heatmap(df: pd.DataFrame) -> go.Figure:
         hovertemplate="<b>%{y} %{x}</b><br>Fraud: %{z:,}<extra></extra>",
     ))
 
-    fig = _apply_layout(fig, height=260)
+    fig = _apply_layout(fig, height=320)
     fig.update_layout(margin=dict(l=0, r=0, t=10, b=0))
     fig.update_xaxes(tickangle=0, tickfont=dict(size=9))
     fig.update_yaxes(tickfont=dict(size=11))
@@ -239,7 +239,7 @@ def day_of_week_bar(df: pd.DataFrame) -> go.Figure:
         customdata=dow["fraud"],
     ))
 
-    fig = _apply_layout(fig, height=240)
+    fig = _apply_layout(fig, height=300)
     fig.update_layout(margin=dict(l=0, r=0, t=20, b=0), xaxis_title=None)
     fig.update_yaxes(title_text="Fraud Rate (%)", ticksuffix="%")
     return fig
@@ -292,7 +292,7 @@ def quarterly_comparison(df: pd.DataFrame) -> go.Figure:
     defaults = plotly_layout_defaults()
     fig.update_layout(**defaults)
     fig.update_layout(
-        height=260,
+        height=320,
         margin=dict(l=0, r=0, t=30, b=0),
     )
     fig.update_annotations(font=dict(size=12, color=COLORS["text_secondary"]))
@@ -330,7 +330,7 @@ def weekly_trend(df: pd.DataFrame) -> go.Figure:
         hovertemplate="Week %{x}<br>4W Avg: %{y:.3f}%<extra></extra>",
     ))
 
-    fig = _apply_layout(fig, height=230)
+    fig = _apply_layout(fig, height=290)
     fig.update_layout(margin=dict(l=0, r=0, t=10, b=0))
     fig.update_yaxes(title_text="Fraud Rate (%)", ticksuffix="%")
     fig.update_xaxes(title_text="Week of Year")
@@ -386,7 +386,7 @@ def us_choropleth(df: pd.DataFrame) -> go.Figure:
         ),
         paper_bgcolor="rgba(0,0,0,0)",
         margin=dict(l=0, r=0, t=0, b=0),
-        height=360,
+        height=440,
         font=dict(family="Inter, sans-serif", color=COLORS["text_primary"]),
         hoverlabel=dict(
             bgcolor=COLORS["white"],
@@ -419,7 +419,7 @@ def top_cities_bar(df: pd.DataFrame, n: int = 12) -> go.Figure:
         hovertemplate="<b>%{y}</b><br>Fraud Count: %{x:,}<extra></extra>",
     ))
 
-    fig = _apply_layout(fig, height=360)
+    fig = _apply_layout(fig, height=420)
     fig.update_layout(margin=dict(l=0, r=30, t=10, b=0))
     fig.update_xaxes(title_text="Number of Fraud Events")
     fig.update_yaxes(title_text=None, tickfont=dict(size=11))
@@ -461,7 +461,7 @@ def age_group_chart(df: pd.DataFrame) -> go.Figure:
     defaults = plotly_layout_defaults()
     fig.update_layout(**defaults)
     fig.update_layout(
-        height=250,
+        height=320,
         margin=dict(l=0, r=0, t=10, b=0),
         yaxis2=dict(
             overlaying="y",
@@ -492,7 +492,7 @@ def card_type_donut(df: pd.DataFrame) -> go.Figure:
         hovertemplate="<b>%{label}</b><br>Fraud Count: %{value:,}<br>%{percent}<extra></extra>",
     ))
 
-    fig = _apply_layout(fig, height=250)
+    fig = _apply_layout(fig, height=320)
     fig.update_layout(
         showlegend=False,
         margin=dict(l=0, r=0, t=10, b=0),
@@ -523,7 +523,7 @@ def channel_fraud_bar(df: pd.DataFrame) -> go.Figure:
         customdata=ch_data["fraud"],
     ))
 
-    fig = _apply_layout(fig, height=250)
+    fig = _apply_layout(fig, height=320)
     fig.update_layout(margin=dict(l=0, r=0, t=20, b=0), xaxis_title=None)
     fig.update_yaxes(title_text="Fraud Rate (%)", ticksuffix="%")
     return fig
@@ -551,7 +551,7 @@ def fraud_type_breakdown(df: pd.DataFrame) -> go.Figure:
         customdata=ft_data["avg_amount"],
     ))
 
-    fig = _apply_layout(fig, height=250)
+    fig = _apply_layout(fig, height=320)
     fig.update_layout(margin=dict(l=0, r=0, t=10, b=0), showlegend=False)
     fig.update_xaxes(title_text="Number of Incidents")
     fig.update_yaxes(title_text=None)
@@ -583,7 +583,7 @@ def amount_distribution(df: pd.DataFrame) -> go.Figure:
         hovertemplate="$%{x:.0f} - %{y:,} transactions<extra>Fraudulent</extra>",
     ))
 
-    fig = _apply_layout(fig, height=250)
+    fig = _apply_layout(fig, height=320)
     fig.update_layout(
         barmode="overlay",
         margin=dict(l=0, r=0, t=10, b=0),

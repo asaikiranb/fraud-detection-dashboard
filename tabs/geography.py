@@ -15,7 +15,7 @@ def render_geography(df: pd.DataFrame, stats: dict):
     """Render the Geographic Analysis tab."""
 
     st.markdown(
-        '<div style="font-size:1.4rem;font-weight:800;color:#1A1A2E;'
+        '<div style="font-size:1.6rem;font-weight:800;color:#1A1A2E;'
         'letter-spacing:-0.03em;margin-bottom:0.2rem;">Geographic Analysis</div>'
         '<div style="font-size:0.85rem;color:#6B7280;margin-bottom:1.5rem;">'
         'Where is fraud concentrated? State and city-level distribution across the US.</div>',
@@ -93,7 +93,7 @@ def render_geography(df: pd.DataFrame, stats: dict):
         st.dataframe(
             display_states,
             use_container_width=True,
-            height=360,
+            height=440,
             hide_index=True,
         )
 

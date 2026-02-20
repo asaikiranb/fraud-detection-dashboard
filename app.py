@@ -55,7 +55,7 @@ def render_filter_bar(df: pd.DataFrame) -> pd.DataFrame:
         f"""
         <div style="display:flex;align-items:baseline;gap:1rem;
                     padding:0.75rem 0 0.5rem 0;">
-            <div style="font-size:1.6rem;font-weight:800;color:{COLORS['text_primary']};
+            <div style="font-size:1.9rem;font-weight:800;color:{COLORS['text_primary']};
                         letter-spacing:-0.04em;line-height:1;">
                 Fraud & Risk Analytics
             </div>

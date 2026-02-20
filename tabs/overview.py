@@ -14,7 +14,7 @@ def render_overview(df: pd.DataFrame, stats: dict):
     """Render the Executive Overview tab."""
 
     st.markdown(
-        '<div style="font-size:1.4rem;font-weight:800;color:#1A1A2E;'
+        '<div style="font-size:1.6rem;font-weight:800;color:#1A1A2E;'
         'letter-spacing:-0.03em;margin-bottom:0.2rem;">Executive Overview</div>'
         '<div style="font-size:0.85rem;color:#6B7280;margin-bottom:1.5rem;">'
         'Comprehensive fraud intelligence · 50,000 transactions · 2023</div>',

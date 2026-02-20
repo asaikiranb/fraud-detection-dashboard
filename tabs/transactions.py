@@ -12,7 +12,7 @@ def render_transactions(df: pd.DataFrame, stats: dict):
     """Render the Transaction Explorer tab."""
 
     st.markdown(
-        '<div style="font-size:1.4rem;font-weight:800;color:#1A1A2E;'
+        '<div style="font-size:1.6rem;font-weight:800;color:#1A1A2E;'
         'letter-spacing:-0.03em;margin-bottom:0.2rem;">Transaction Explorer</div>'
         '<div style="font-size:0.85rem;color:#6B7280;margin-bottom:1.25rem;">'
         'Drill into individual transactions. Filter, search, and export raw data.</div>',
@@ -172,7 +172,7 @@ def render_transactions(df: pd.DataFrame, stats: dict):
     st.dataframe(
         display_df.head(500),
         use_container_width=True,
-        height=420,
+        height=520,
         hide_index=True,
         column_config={
             "Status": st.column_config.TextColumn("Status", help="FRAUD or Legitimate"),

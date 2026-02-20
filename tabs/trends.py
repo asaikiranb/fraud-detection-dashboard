@@ -20,7 +20,7 @@ def render_trends(df: pd.DataFrame, stats: dict):
     """Render the Temporal Trends tab."""
 
     st.markdown(
-        '<div style="font-size:1.4rem;font-weight:800;color:#1A1A2E;'
+        '<div style="font-size:1.6rem;font-weight:800;color:#1A1A2E;'
         'letter-spacing:-0.03em;margin-bottom:0.2rem;">Temporal Trends</div>'
         '<div style="font-size:0.85rem;color:#6B7280;margin-bottom:1.5rem;">'
         'When does fraud happen? Identify time-based patterns and seasonal anomalies.</div>',

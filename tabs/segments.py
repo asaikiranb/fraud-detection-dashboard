@@ -21,7 +21,7 @@ def render_segments(df: pd.DataFrame, stats: dict):
     """Render the Customer Segments tab."""
 
     st.markdown(
-        '<div style="font-size:1.4rem;font-weight:800;color:#1A1A2E;'
+        '<div style="font-size:1.6rem;font-weight:800;color:#1A1A2E;'
         'letter-spacing:-0.03em;margin-bottom:0.2rem;">Customer Segments</div>'
         '<div style="font-size:0.85rem;color:#6B7280;margin-bottom:1.5rem;">'
         'Who is most targeted? Break down fraud risk by demographics, card type, and channel.</div>',

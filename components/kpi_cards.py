@@ -3,22 +3,22 @@ from components.styles import COLORS
 
 # Inline style constants (avoids reliance on injected CSS classes)
 _CARD = (
-    "background:#FFFFFF;border:1px solid #E9ECEF;border-radius:12px;"
-    "padding:1.25rem 1.5rem;"
+    "background:#FFFFFF;border:1px solid #E9ECEF;border-radius:14px;"
+    "padding:1.5rem 1.75rem;"
     "box-shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.03);"
-    "min-height:110px;"
+    "min-height:130px;"
 )
 _LABEL = (
-    "color:#6B7280;font-size:0.68rem;font-weight:700;text-transform:uppercase;"
-    "letter-spacing:0.08em;margin-bottom:0.4rem;"
+    "color:#6B7280;font-size:0.72rem;font-weight:700;text-transform:uppercase;"
+    "letter-spacing:0.08em;margin-bottom:0.5rem;"
 )
 _VALUE = (
-    "color:#1A1A2E;font-size:1.85rem;font-weight:800;line-height:1.1;margin-bottom:0.35rem;"
+    "color:#1A1A2E;font-size:2.2rem;font-weight:800;line-height:1.1;margin-bottom:0.4rem;"
 )
-_DELTA_NEG = "color:#DC2626;font-size:0.72rem;font-weight:600;margin-bottom:0.2rem;"
-_DELTA_POS = "color:#059669;font-size:0.72rem;font-weight:600;margin-bottom:0.2rem;"
-_DELTA_NEUTRAL = "color:#6B7280;font-size:0.72rem;font-weight:600;margin-bottom:0.2rem;"
-_SUB = "color:#9CA3AF;font-size:0.68rem;margin-top:0.1rem;"
+_DELTA_NEG = "color:#DC2626;font-size:0.78rem;font-weight:600;margin-bottom:0.25rem;"
+_DELTA_POS = "color:#059669;font-size:0.78rem;font-weight:600;margin-bottom:0.25rem;"
+_DELTA_NEUTRAL = "color:#6B7280;font-size:0.78rem;font-weight:600;margin-bottom:0.25rem;"
+_SUB = "color:#9CA3AF;font-size:0.72rem;margin-top:0.15rem;"
 
 
 def render_kpi_card(label: str, value: str, delta: str = None,
@@ -104,10 +104,10 @@ def render_mini_kpi_row(items: list):
         with col:
             st.markdown(
                 f'<div style="background:#F8F9FA;border:1px solid #E9ECEF;'
-                f'border-radius:10px;padding:0.9rem 1rem;">'
-                f'<div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;'
-                f'letter-spacing:0.07em;color:#6B7280;margin-bottom:0.3rem;">{item["label"]}</div>'
-                f'<div style="font-size:1.3rem;font-weight:800;color:{color};line-height:1.1;">'
+                f'border-radius:12px;padding:1.1rem 1.25rem;">'
+                f'<div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;'
+                f'letter-spacing:0.07em;color:#6B7280;margin-bottom:0.4rem;">{item["label"]}</div>'
+                f'<div style="font-size:1.5rem;font-weight:800;color:{color};line-height:1.1;">'
                 f'{item["value"]}</div>'
                 f'</div>',
                 unsafe_allow_html=True,
