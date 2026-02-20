@@ -193,7 +193,6 @@ def generate_fraud_dataset(n_transactions: int = 50000) -> pd.DataFrame:
     return df
 
 
-@staticmethod
 def get_summary_stats(df: pd.DataFrame) -> dict:
     """Compute top-level summary statistics."""
     total = len(df)

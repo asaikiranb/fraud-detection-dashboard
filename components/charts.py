@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from components.styles import COLORS, CHART_COLORSCALE, FRAUD_COLORSCALE, plotly_layout_defaults
+from components.styles import COLORS, CHART_COLORSCALE, FRAUD_COLORSCALE, plotly_layout_defaults, DAY_ORDER, DAY_SHORT
 
 
 def _apply_layout(fig, title: str = None, height: int = None):
@@ -176,8 +176,6 @@ def monthly_fraud_trend(df: pd.DataFrame) -> go.Figure:
 
 def hourly_heatmap(df: pd.DataFrame) -> go.Figure:
     """Heatmap of fraud count by hour and day of week."""
-    day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-
     heat_data = df[df["is_fraud"] == 1].groupby(
         ["day_of_week", "hour"]
     ).size().reset_index(name="count")
@@ -185,7 +183,7 @@ def hourly_heatmap(df: pd.DataFrame) -> go.Figure:
     pivot = heat_data.pivot_table(
         index="day_of_week", columns="hour", values="count", fill_value=0
     )
-    pivot = pivot.reindex([d for d in day_order if d in pivot.index])
+    pivot = pivot.reindex([d for d in DAY_ORDER if d in pivot.index])
     pivot = pivot.reindex(columns=range(24), fill_value=0)
 
     fig = go.Figure(go.Heatmap(
@@ -212,15 +210,12 @@ def hourly_heatmap(df: pd.DataFrame) -> go.Figure:
 
 def day_of_week_bar(df: pd.DataFrame) -> go.Figure:
     """Fraud rate by day of week."""
-    day_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    day_short = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-
     dow = df.groupby("day_of_week").agg(
         total=("is_fraud", "count"),
         fraud=("is_fraud", "sum"),
-    ).reindex(day_order).reset_index()
+    ).reindex(DAY_ORDER).reset_index()
     dow["rate"] = dow["fraud"] / dow["total"] * 100
-    dow["day_short"] = day_short
+    dow["day_short"] = DAY_SHORT
 
     max_rate = dow["rate"].max()
     colors = [

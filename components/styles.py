@@ -42,6 +42,21 @@ FRAUD_COLORSCALE = [
 ]
 
 
+# ── Shared chart config (avoids repeating {"displayModeBar": False} everywhere)
+PLOTLY_CONFIG = {"displayModeBar": False}
+
+# ── Reusable inline style strings shared across all tab files
+SECTION_HEADER_STYLE = (
+    "font-size:0.875rem;font-weight:700;color:#1A1A2E;"
+    "margin-bottom:0.25rem;padding-bottom:0.5rem;border-bottom:1px solid #E9ECEF;"
+)
+SECTION_SUBTITLE_STYLE = "font-size:0.78rem;color:#6B7280;margin-bottom:0.75rem;"
+
+# ── Day label lists used in multiple chart functions
+DAY_ORDER = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+DAY_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+
 def inject_css():
     """Inject custom CSS for the entire dashboard."""
     st.markdown(f"""

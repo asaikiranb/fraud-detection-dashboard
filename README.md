@@ -1,49 +1,55 @@
-# FraudLens — Fraud Detection Dashboard
+# Fraud & Risk Analytics Dashboard
 
-A production-quality, executive-grade Streamlit dashboard for credit card fraud analysis. Built with a clean, minimal white design and rich interactive visualizations.
-
-## Features
-
-- **Executive Overview** — KPI cards, fraud split, category breakdown, monthly trend
-- **Temporal Trends** — Hour × day heatmap, day-of-week patterns, weekly trend, quarterly comparison
-- **Geographic Analysis** — US choropleth map, top cities, state drill-down table
-- **Customer Segments** — Age group risk, card type distribution, channel risk, fraud type breakdown
-- **Transaction Explorer** — Filterable/searchable table with CSV export
-
-## Dataset
-
-Synthetic credit card fraud dataset with 50,000 transactions (2023), featuring:
-- Realistic fraud rate (~1.7%)
-- Multiple fraud types: Card Not Present, Account Takeover, Synthetic Identity, Merchant Fraud, Skimming
-- Geographic data across all 50 US states
-- Demographic and transaction channel data
+A Streamlit dashboard for credit card fraud analysis. Clean, minimal design with interactive Plotly charts across five drill-down tabs.
 
 ## Setup
 
 ```bash
-# Clone the repo
 git clone https://github.com/asaikiranb/fraud-detection-dashboard.git
 cd fraud-detection-dashboard
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Run the dashboard
 streamlit run app.py
 ```
 
-The dashboard will be available at `http://localhost:8501`.
+Open `http://localhost:8501` in your browser.
 
-## Tech Stack
+## Tabs
 
-- **Streamlit** — Dashboard framework
-- **Plotly** — Interactive charts
-- **Pandas / NumPy** — Data processing
-- **Custom CSS** — Clean white design system
+| Tab | What it shows |
+|-----|--------------|
+| Executive Overview | KPI cards, fraud split, category breakdown, monthly trend |
+| Temporal Trends | Hour × day heatmap, day-of-week rates, weekly trend, QoQ comparison |
+| Geographic Analysis | US choropleth, top cities chart, state drill-down table |
+| Customer Segments | Age group risk, card type split, channel rates, attack type breakdown |
+| Transaction Explorer | Filterable table with search and CSV export |
 
-## Design Principles
+## Dataset
 
-- Minimal white palette with intentional use of red (fraud) and green (safe)
-- Executive-first layout: KPIs → overview → drill-downs
-- All charts are interactive with hover tooltips
-- Global sidebar filters apply across all tabs
+Synthetic credit card fraud data — 50,000 transactions across 2023, generated with reproducible seed. Covers 49 US states, 4 card types, 4 transaction channels, 5 fraud types, and 10 merchant categories. No external download required.
+
+## Project Structure
+
+```
+app.py                  # Entry point, filter bar, tab routing
+data/
+  generate_data.py      # Synthetic dataset generator
+components/
+  styles.py             # Design tokens, shared constants, CSS injection
+  kpi_cards.py          # KPI cards, section headers, insight boxes
+  charts.py             # All 14 Plotly chart functions
+tabs/
+  overview.py           # Executive Overview tab
+  trends.py             # Temporal Trends tab
+  geography.py          # Geographic Analysis tab
+  segments.py           # Customer Segments tab
+  transactions.py       # Transaction Explorer tab
+.streamlit/
+  config.toml           # Light theme config
+requirements.txt
+```
+
+## Stack
+
+- [Streamlit](https://streamlit.io) — UI framework
+- [Plotly](https://plotly.com/python/) — Interactive charts
+- [Pandas](https://pandas.pydata.org) / [NumPy](https://numpy.org) — Data processing

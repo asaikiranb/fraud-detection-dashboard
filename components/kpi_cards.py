@@ -1,5 +1,5 @@
 import streamlit as st
-from components.styles import COLORS
+from components.styles import COLORS, SECTION_HEADER_STYLE, SECTION_SUBTITLE_STYLE
 
 # Inline style constants (avoids reliance on injected CSS classes)
 _CARD = (
@@ -103,12 +103,49 @@ def render_mini_kpi_row(items: list):
         color = item.get("color", COLORS["text_primary"])
         with col:
             st.markdown(
-                f'<div style="background:#F8F9FA;border:1px solid #E9ECEF;'
+                f'<div style="background:{COLORS["surface"]};border:1px solid {COLORS["border"]};'
                 f'border-radius:12px;padding:1.1rem 1.25rem;">'
                 f'<div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;'
-                f'letter-spacing:0.07em;color:#6B7280;margin-bottom:0.4rem;">{item["label"]}</div>'
+                f'letter-spacing:0.07em;color:{COLORS["text_secondary"]};margin-bottom:0.4rem;">{item["label"]}</div>'
                 f'<div style="font-size:1.5rem;font-weight:800;color:{color};line-height:1.1;">'
                 f'{item["value"]}</div>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
+
+
+def render_page_header(title: str, subtitle: str):
+    """Render a consistent tab page title and subtitle."""
+    st.markdown(
+        f'<div style="font-size:1.6rem;font-weight:800;color:{COLORS["text_primary"]};'
+        f'letter-spacing:-0.03em;margin-bottom:0.2rem;">{title}</div>'
+        f'<div style="font-size:0.85rem;color:{COLORS["text_secondary"]};margin-bottom:1.5rem;">'
+        f'{subtitle}</div>',
+        unsafe_allow_html=True,
+    )
+
+
+def render_section_header(title: str, subtitle: str):
+    """Render a chart section title with underline and subtitle."""
+    st.markdown(
+        f'<div style="{SECTION_HEADER_STYLE}">{title}</div>'
+        f'<div style="{SECTION_SUBTITLE_STYLE}">{subtitle}</div>',
+        unsafe_allow_html=True,
+    )
+
+
+def render_insight_box(label: str, items: list):
+    """Render a bottom insight summary box with bullet items."""
+    bullets = "".join(
+        f'<div style="font-size:0.8rem;color:{COLORS["text_primary"]};margin-bottom:0.3rem;">'
+        f'– {item}</div>'
+        for item in items
+    )
+    st.markdown(
+        f'<div style="background:{COLORS["surface"]};border:1px solid {COLORS["border"]};'
+        f'border-radius:10px;padding:1rem 1.25rem;margin-top:1rem;">'
+        f'<div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;'
+        f'letter-spacing:0.06em;color:{COLORS["text_secondary"]};margin-bottom:0.5rem;">{label}</div>'
+        f'{bullets}</div>',
+        unsafe_allow_html=True,
+    )
