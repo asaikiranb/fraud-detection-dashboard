@@ -12,8 +12,8 @@ from tabs.transactions import render_transactions
 
 # ─── Page Config ─────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="FraudLens — Fraud Detection Dashboard",
-    page_icon="🔍",
+    page_title="Fraud & Risk Analytics Dashboard",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -46,48 +46,48 @@ def compute_stats(df: pd.DataFrame) -> dict:
     }
 
 
-# ─── Top Filter Bar ───────────────────────────────────────────────────────────
+# ─── Top Header + Filter Bar ─────────────────────────────────────────────────
 def render_filter_bar(df: pd.DataFrame) -> pd.DataFrame:
-    """Render a compact horizontal filter bar beneath the brand header."""
+    """Render the dashboard header and a clean horizontal filter bar."""
 
-    # Brand header row
-    brand_col, spacer = st.columns([1, 3])
-    with brand_col:
-        st.markdown(
-            f"""
-            <div style="display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0 0.25rem 0;">
-                <div style="width:32px;height:32px;background:{COLORS['text_primary']};
-                            border-radius:8px;display:flex;align-items:center;
-                            justify-content:center;font-size:16px;flex-shrink:0;">🔍</div>
-                <div>
-                    <div style="font-size:1rem;font-weight:800;color:{COLORS['text_primary']};
-                                letter-spacing:-0.02em;line-height:1.1;">FraudLens</div>
-                    <div style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.07em;
-                                color:{COLORS['text_muted']};">Detection Dashboard</div>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
+    # ── Brand header
     st.markdown(
-        f"<hr style='border:none;border-top:1px solid {COLORS['border']};margin:0.5rem 0 0.85rem 0;'/>",
+        f"""
+        <div style="display:flex;align-items:baseline;gap:1rem;
+                    padding:0.75rem 0 0.5rem 0;">
+            <div style="font-size:1.6rem;font-weight:800;color:{COLORS['text_primary']};
+                        letter-spacing:-0.04em;line-height:1;">
+                Fraud & Risk Analytics
+            </div>
+            <div style="font-size:0.7rem;font-weight:600;text-transform:uppercase;
+                        letter-spacing:0.1em;color:{COLORS['text_muted']};
+                        padding-bottom:0.15rem;">
+                Dashboard
+            </div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
-    # ── Filter row
+    st.markdown(
+        f"<hr style='border:none;border-top:1px solid {COLORS['border']};margin:0.4rem 0 0.9rem 0;'/>",
+        unsafe_allow_html=True,
+    )
+
+    # ── Filter row — all dropdowns (selectbox), no multiselect tags
     fraud_types = sorted(df["fraud_type"].dropna().unique().tolist())
     card_types = sorted(df["card_type"].unique().tolist())
     channels = sorted(df["transaction_channel"].unique().tolist())
 
-    f0, f1, f2, f3, f4, f5 = st.columns([1.2, 1.2, 1.8, 1.8, 1.8, 0.7], gap="small")
+    _lbl = (
+        "font-size:0.62rem;font-weight:700;text-transform:uppercase;"
+        f"letter-spacing:0.08em;color:{COLORS['text_secondary']};margin-bottom:3px;"
+    )
+
+    f0, f1, f2, f3, f4, f5 = st.columns([1.1, 1.1, 1.6, 1.4, 1.4, 0.6], gap="small")
 
     with f0:
-        st.markdown(
-            f"<div style='font-size:0.65rem;font-weight:700;text-transform:uppercase;"
-            f"letter-spacing:0.07em;color:{COLORS['text_secondary']};margin-bottom:4px;'>From</div>",
-            unsafe_allow_html=True,
-        )
+        st.markdown(f'<div style="{_lbl}">From</div>', unsafe_allow_html=True)
         start_date = st.date_input(
             "from_date",
             value=datetime(2023, 1, 1),
@@ -98,11 +98,7 @@ def render_filter_bar(df: pd.DataFrame) -> pd.DataFrame:
         )
 
     with f1:
-        st.markdown(
-            f"<div style='font-size:0.65rem;font-weight:700;text-transform:uppercase;"
-            f"letter-spacing:0.07em;color:{COLORS['text_secondary']};margin-bottom:4px;'>To</div>",
-            unsafe_allow_html=True,
-        )
+        st.markdown(f'<div style="{_lbl}">To</div>', unsafe_allow_html=True)
         end_date = st.date_input(
             "to_date",
             value=datetime(2023, 12, 31),
@@ -113,61 +109,45 @@ def render_filter_bar(df: pd.DataFrame) -> pd.DataFrame:
         )
 
     with f2:
-        st.markdown(
-            f"<div style='font-size:0.65rem;font-weight:700;text-transform:uppercase;"
-            f"letter-spacing:0.07em;color:{COLORS['text_secondary']};margin-bottom:4px;'>Fraud Type</div>",
-            unsafe_allow_html=True,
-        )
-        selected_types = st.multiselect(
+        st.markdown(f'<div style="{_lbl}">Fraud Type</div>', unsafe_allow_html=True)
+        fraud_type_options = ["All Types"] + fraud_types
+        selected_fraud_type = st.selectbox(
             "Fraud Type",
-            options=fraud_types,
-            default=fraud_types,
+            options=fraud_type_options,
+            index=0,
             label_visibility="collapsed",
             key="filter_fraud_type",
-            placeholder="All types",
         )
 
     with f3:
-        st.markdown(
-            f"<div style='font-size:0.65rem;font-weight:700;text-transform:uppercase;"
-            f"letter-spacing:0.07em;color:{COLORS['text_secondary']};margin-bottom:4px;'>Card Type</div>",
-            unsafe_allow_html=True,
-        )
-        selected_cards = st.multiselect(
+        st.markdown(f'<div style="{_lbl}">Card Type</div>', unsafe_allow_html=True)
+        card_type_options = ["All Cards"] + card_types
+        selected_card = st.selectbox(
             "Card Type",
-            options=card_types,
-            default=card_types,
+            options=card_type_options,
+            index=0,
             label_visibility="collapsed",
             key="filter_card_type",
-            placeholder="All cards",
         )
 
     with f4:
-        st.markdown(
-            f"<div style='font-size:0.65rem;font-weight:700;text-transform:uppercase;"
-            f"letter-spacing:0.07em;color:{COLORS['text_secondary']};margin-bottom:4px;'>Channel</div>",
-            unsafe_allow_html=True,
-        )
-        selected_channels = st.multiselect(
+        st.markdown(f'<div style="{_lbl}">Channel</div>', unsafe_allow_html=True)
+        channel_options = ["All Channels"] + channels
+        selected_channel = st.selectbox(
             "Channel",
-            options=channels,
-            default=channels,
+            options=channel_options,
+            index=0,
             label_visibility="collapsed",
             key="filter_channel",
-            placeholder="All channels",
         )
 
     with f5:
-        st.markdown(
-            f"<div style='font-size:0.65rem;font-weight:700;text-transform:uppercase;"
-            f"letter-spacing:0.07em;color:{COLORS['text_secondary']};margin-bottom:4px;'>Reset</div>",
-            unsafe_allow_html=True,
-        )
-        if st.button("↺ Reset", key="reset_filters", use_container_width=True):
+        st.markdown(f'<div style="{_lbl}">Reset</div>', unsafe_allow_html=True)
+        if st.button("Reset", key="reset_filters", use_container_width=True):
             st.rerun()
 
     st.markdown(
-        f"<hr style='border:none;border-top:1px solid {COLORS['border']};margin:0.85rem 0 0 0;'/>",
+        f"<hr style='border:none;border-top:1px solid {COLORS['border']};margin:0.9rem 0 0 0;'/>",
         unsafe_allow_html=True,
     )
 
@@ -177,15 +157,15 @@ def render_filter_bar(df: pd.DataFrame) -> pd.DataFrame:
     end_ts = pd.Timestamp(end_date) + pd.Timedelta(days=1)
     filtered = filtered[(filtered["timestamp"] >= start_ts) & (filtered["timestamp"] < end_ts)]
 
-    if selected_types:
-        fraud_mask = (filtered["is_fraud"] == 0) | (filtered["fraud_type"].isin(selected_types))
+    if selected_fraud_type != "All Types":
+        fraud_mask = (filtered["is_fraud"] == 0) | (filtered["fraud_type"] == selected_fraud_type)
         filtered = filtered[fraud_mask]
 
-    if selected_cards:
-        filtered = filtered[filtered["card_type"].isin(selected_cards)]
+    if selected_card != "All Cards":
+        filtered = filtered[filtered["card_type"] == selected_card]
 
-    if selected_channels:
-        filtered = filtered[filtered["transaction_channel"].isin(selected_channels)]
+    if selected_channel != "All Channels":
+        filtered = filtered[filtered["transaction_channel"] == selected_channel]
 
     return filtered
 

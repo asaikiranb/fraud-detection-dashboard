@@ -143,13 +143,30 @@ def inject_css():
             font-weight: 500;
         }}
 
-        /* ─── Selectbox & Inputs ─── */
-        .stSelectbox > div > div {{
-            border: 1px solid {COLORS['border']};
-            border-radius: 8px;
-            background-color: {COLORS['white']};
+        /* ─── Selectbox & Date Inputs ─── */
+        .stSelectbox > div > div,
+        .stDateInput > div > div {{
+            border: 1px solid {COLORS['border']} !important;
+            border-radius: 8px !important;
+            background-color: {COLORS['white']} !important;
+            box-shadow: none !important;
+            min-height: 38px;
         }}
 
+        .stSelectbox > div > div:focus-within,
+        .stDateInput > div > div:focus-within {{
+            border-color: {COLORS['text_primary']} !important;
+            box-shadow: 0 0 0 2px rgba(26,26,46,0.08) !important;
+        }}
+
+        /* Selectbox dropdown option text */
+        .stSelectbox [data-testid="stSelectboxVirtualDropdown"] {{
+            border: 1px solid {COLORS['border']};
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }}
+
+        /* ─── Multiselect (kept for Transaction Explorer tab) ─── */
         .stMultiSelect > div > div {{
             border: 1px solid {COLORS['border']};
             border-radius: 8px;

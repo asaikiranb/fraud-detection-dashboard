@@ -78,7 +78,7 @@ def render_transactions(df: pd.DataFrame, stats: dict):
 
     search_term = st.text_input(
         "search_bar",
-        placeholder="🔍  Search by Transaction ID, city, or state...",
+        placeholder="Search by Transaction ID, city, or state...",
         label_visibility="collapsed",
         key="tx_search",
     )
